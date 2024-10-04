@@ -39,6 +39,9 @@ global_style = Style(
   """
 )
 
+website_title = "sat logs"
+favicon_path = "public/favicon.ico"
+
 
 def load_blog_entries():
   entries = []
@@ -60,20 +63,24 @@ def load_blog_entries():
 def home():
   entries = load_blog_entries()
   return Html(
-    Head(global_style),
+    Head(
+      global_style,
+      Title(website_title),
+      Link(rel="icon", href=favicon_path, type="image/x-icon")
+    ),
     Body(
       Div(
         H2("welcome to sat's logs"),
         P(
           "i am satrajit chatterjee (sat) a developer from canada working as an ai developer. ",
-          "you can find more about me at ",
-          A("satrajit.ca", href="https://satrajit.ca")
+          "you can find more about me at:",
         ),
+        H3(A("satrajit.ca", href="https://satrajit.ca")),
         P(I("this website is made using fasthtml (+ fastapi)")),
         Div(
           *[
             P(
-              "-- (",
+              "-> (",
               entry['date'],
               ") ",
               A(entry['title'], href=f"/entry/{entry['filename']}")
@@ -87,17 +94,7 @@ def home():
 
 
 def _show_entry(title, content):
-  return Html(
-    Head(global_style),
-    Body(
-      Div(
-        A(I("<- back to home"), href="/"),
-        Div(Class="vertspace"),
-        H1(title),
-        P(content),
-      )
-    )
-  )
+  return
 
 
 @rt('/entry/{filename}')
@@ -106,7 +103,22 @@ def fetch_entry(filename: str):
     with open(os.path.join(BLOGS_FOLDER, filename + ".txt"), 'r') as f:
       content = f.read()
     title = " ".join(filename.split('-')[1:]).replace('_', ' ').replace('.txt', '')
-    return _show_entry(title, content)
+
+    return Html(
+      Head(
+        global_style,
+        Title(website_title),
+        Link(rel="icon", href=f"../{favicon_path}", type="image/x-icon")
+      ),
+      Body(
+        Div(
+          A(I("<- back to home"), href="/"),
+          Div(Class="vertspace"),
+          H1(title),
+          P(content),
+        )
+      )
+    )
   except FileNotFoundError:
     return P("Blog post not found."), 404
 
