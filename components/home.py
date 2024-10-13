@@ -1,9 +1,9 @@
 from fasthtml.common import *
 
 # local
+from variables import WEBSITE_TITLE, FAVICON_PATH, BLOGS_FOLDER
 from functions.loading import load_blog_entries
 from styles.global_style import global_style
-from variables import WEBSITE_TITLE, FAVICON_PATH, BLOGS_FOLDER
 
 
 def fetch_home():
