@@ -4,7 +4,8 @@ from fasthtml.common import *
 from components.home import fetch_home
 from components.entry import fetch_entry
 
-app, rt = fast_app()
+hdrs = (MarkdownJS(), HighlightJS(langs=['python', 'javascript', 'html', 'css']), )
+app, rt = fast_app(hdrs=hdrs)
 
 
 @rt('/')

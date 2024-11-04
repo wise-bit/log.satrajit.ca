@@ -27,7 +27,7 @@ def fetch_home():
         Div(
           *[
             Div(
-              Div("-> (", entry['date'], ") ",),
+              Div("-> ", entry['date'], "",),
               Div(
                 A(
                   H4(entry['title']), 
