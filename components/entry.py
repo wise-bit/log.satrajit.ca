@@ -7,9 +7,9 @@ from styles.global_style import global_style
 
 def fetch_entry(filename: str):
   try:
-    with open(os.path.join(BLOGS_FOLDER, filename + ".txt"), 'r') as f:
+    with open(os.path.join(BLOGS_FOLDER, filename + ".md"), 'r') as f:
       content = f.read()
-    title = " ".join(filename.split('-')[1:]).replace('_', ' ').replace('.txt', '')
+    title = " ".join(filename.split('-')[1:]).replace('_', ' ').replace('.md', '')
 
     return Html(
       Head(
@@ -34,6 +34,9 @@ def fetch_entry(filename: str):
         Link(rel="icon", href=f"../{FAVICON_PATH}", type="image/x-icon")
       ),
       Body(
-        P("where were you trying to go?")
+        Div(
+          P("error 404:"),
+          P("where were you trying to go?")
+        )
       )
     )
